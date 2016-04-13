@@ -19,9 +19,9 @@ var TableTag = React.createClass({
 // Table Element
 var TableTitle = React.createClass({
   render: function() {
-    return ( 
+    return (
       <div>
-        <h2> {this.props.title}</h2> 
+        <h2> {this.props.title}</h2>
       </div>
     );
   }
@@ -29,9 +29,9 @@ var TableTitle = React.createClass({
 
 var SearchMatch = React.createClass({
   render: function() {
-    return ( 
+    return (
       <div>
-        <p> Match: {this.props.match}</p> 
+        <p> Match: {this.props.match}</p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ var SearchMatch = React.createClass({
 
 // Table
 var Table = React.createClass({
-  
+
   render: function() {
 
     // We need to get each row and store it in an array
@@ -48,11 +48,11 @@ var Table = React.createClass({
     var searchterm = this.props.searchTerm; // need this or it doesnt work
     var key = '';
     this.props.data.forEach(function(row) {
-      if (row.title.toLowerCase().indexOf(searchterm.toLowerCase()) === -1 && 
+      if (row.title.toLowerCase().indexOf(searchterm.toLowerCase()) === -1 &&
           row.tags.toLowerCase().indexOf(searchterm.toLowerCase()) === -1
          )
         return;
-  
+
       // need to grab the correct match
       if (row.title.toLowerCase().indexOf(searchterm.toLowerCase()) === -1) {
         var m = row.tags.toLowerCase().split(' ');
@@ -62,7 +62,7 @@ var Table = React.createClass({
       } else {
         key = row.title.toLowerCase();
       }
-      
+
       rowsTitle.push( <TableTitle title = {row.title} />);
       if (searchterm != '')
         rowsTitle.push( <SearchMatch match ={key} />);
@@ -72,9 +72,9 @@ var Table = React.createClass({
     });
 
     // Then render all. Render using childs. Send them prop.title and prop.data
-    return ( 
-      <div> 
-        {rowsTitle} 
+    return (
+      <div>
+        {rowsTitle}
       </div>
     );
   }
@@ -82,21 +82,21 @@ var Table = React.createClass({
 
 // Search
 var Search = React.createClass({
-  
+
   filterList: function(event) {
     this.props.userInput(event.target.value);
   },
 
   render: function() {
-    return ( 
-      <input type = "text" 
+    return (
+      <input type = "text"
         placeholder = "Start Typing"
         value = {this.props.searchTerm}
-        onChange = {this.filterList} autoFocus> 
+        onChange = {this.filterList} autoFocus>
       </input>
     );
   }
-  
+
 });
 
 // App
@@ -117,14 +117,14 @@ var App = React.createClass({
 
   render: function() {
 
-    return ( 
+    return (
       <div>
         <header>
           <img src="http://www.sodiumhalogen.com/up_c/static1.squarespace-Nm4t3ookmK.png" />
           <h1>Find a CO:member<br/> that can help you.</h1>
         </header>
-          <Search searchTerm = {this.state.filterText} userInput = {this.handleUserInput} />     
-          <Table searchTerm = {this.state.filterText} data = {this.props.data} tags = {this.props.tags} /> 
+          <Search searchTerm = {this.state.filterText} userInput = {this.handleUserInput} />
+          <Table searchTerm = {this.state.filterText} data = {this.props.data} tags = {this.props.tags} />
       </div>
     );
 }
