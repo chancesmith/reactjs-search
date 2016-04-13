@@ -1,0 +1,68 @@
+body {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+#app {
+  color: #4a4a4a;
+  margin-top: 20px;
+  margin-left: 50px;
+  font-family: sans-serif;
+}
+
+p {
+  margin: 0 0 0 0;
+  line-height: 25px;
+}
+h2 {
+  line-height: 0px;
+  margin: 40px 0 17px 0;
+}
+
+#app header{
+  float: right;
+  padding: 20px;
+}
+#app header img {
+  margin: center;
+  width: 200px;
+  margin-left: -10px;
+}
+#app header h1 {
+  font-size: 30px;
+  font-family: sans-serif;
+  color: #bbb;
+}
+
+#app input {
+  border: 0;
+  background: #ccc;
+  font-size: 40px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  padding: 20px;
+  margin: 0 0 15px 0;
+}
+
+textarea, input { outline: none; }
+
+h4 {
+  font-size: 15px;
+  color: red;
+}
+
+::-webkit-input-placeholder {
+   color: #eee;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: #eee;  
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #eee;  
+}
+:-ms-input-placeholder {  
+   color: #eee;  
+}
+

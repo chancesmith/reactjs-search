@@ -1,0 +1,165 @@
+// Table Data
+var TableData = React.createClass({
+  render: function() {
+    return (
+      <p> {this.props.data} </p>
+    );
+  }
+});
+
+// Table Tags
+var TableTag = React.createClass({
+  render: function() {
+    return (
+      <p><strong>categories:</strong> {this.props.tags} </p>
+    );
+  }
+});
+
+// Table Element
+var TableTitle = React.createClass({
+  render: function() {
+    return ( 
+      <div>
+        <h2> {this.props.title}</h2> 
+      </div>
+    );
+  }
+});
+
+var SearchMatch = React.createClass({
+  render: function() {
+    return ( 
+      <div>
+        <p> Match: {this.props.match}</p> 
+      </div>
+    );
+  }
+});
+
+// Table
+var Table = React.createClass({
+  
+  render: function() {
+
+    // We need to get each row and store it in an array
+    var rowsTitle = [];
+    var search = [];
+    var searchterm = this.props.searchTerm; // need this or it doesnt work
+    var key = '';
+    this.props.data.forEach(function(row) {
+      if (row.title.toLowerCase().indexOf(searchterm.toLowerCase()) === -1 && 
+          row.tags.toLowerCase().indexOf(searchterm.toLowerCase()) === -1
+         )
+        return;
+  
+      // need to grab the correct match
+      if (row.title.toLowerCase().indexOf(searchterm.toLowerCase()) === -1) {
+        var m = row.tags.toLowerCase().split(' ');
+        for (var i in m)
+         if (m[i].indexOf(searchterm.toLowerCase()) !== -1)
+            key = m[i];
+      } else {
+        key = row.title.toLowerCase();
+      }
+      
+      rowsTitle.push( <TableTitle title = {row.title} />);
+      if (searchterm != '')
+        rowsTitle.push( <SearchMatch match ={key} />);
+      rowsTitle.push( <TableTag tags = {row.tags} />);
+      rowsTitle.push( <TableData data = {row.content} />);
+
+    });
+
+    // Then render all. Render using childs. Send them prop.title and prop.data
+    return ( 
+      <div> 
+        {rowsTitle} 
+      </div>
+    );
+  }
+  });
+
+// Search
+var Search = React.createClass({
+  
+  filterList: function(event) {
+    this.props.userInput(event.target.value);
+  },
+
+  render: function() {
+    return ( 
+      <input type = "text" 
+        placeholder = "Start Typing"
+        value = {this.props.searchTerm}
+        onChange = {this.filterList} autoFocus> 
+      </input>
+    );
+  }
+  
+});
+
+// App
+var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      filterText: '',
+      filterText2: ''
+    };
+  },
+
+  handleUserInput: function(filter) {
+    this.setState({
+      filterText: filter
+    });
+  },
+
+  render: function() {
+
+    return ( 
+      <div>
+        <header>
+          <img src="http://www.sodiumhalogen.com/up_c/static1.squarespace-Nm4t3ookmK.png" />
+          <h1>Find a CO:member<br/> that can help you.</h1>
+        </header>
+          <Search searchTerm = {this.state.filterText} userInput = {this.handleUserInput} />     
+          <Table searchTerm = {this.state.filterText} data = {this.props.data} tags = {this.props.tags} /> 
+      </div>
+    );
+}
+});
+
+// JSON
+var DATA = [{
+  "title": "Chance Smith",
+  "tags": "code strategy",
+  "content": "This guy likes to codes."
+}, {
+  "title": "Ben Harris",
+  "tags": "popvox maker",
+  "content": "This fella runs Popvox and flies drones."
+}, {
+  "title": "William Donnell",
+  "tags": "design remote team",
+  "content": "The guy is the founder of Sodium Halogen and talks to himself when on his Mac."
+}, {
+  "title": "Kevin Adelsberger",
+  "tags": "marketing design code",
+  "content": "This dude builds websites with a profound marketing approach."
+}, {
+  "title": "Dan Dromygosh",
+  "tags": "music rock",
+  "content": "This brah has mad customer service skills and knows how to rock your face off."
+}, {
+  "title": "Austin Thompson",
+  "tags": "wood code",
+  "content": "Makes cool things with wood and single handly conquered theCO."
+}, {
+  "title": "Lisa Garner",
+  "tags": "blue",
+  "content": "Making blue awesome again."
+}];
+
+// Render
+React.render(<App data = {DATA} />, document.getElementById("app"));
